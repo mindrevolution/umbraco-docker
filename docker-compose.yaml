@@ -1,0 +1,28 @@
+version: "3"
+services:
+  umbracodb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "P@ssword8347234298"
+      ACCEPT_EULA: "Y"
+
+  umbracocms:
+    image: mindrevolution/umbraco:9.0.0alpha4
+    depends_on:
+      - umbracodb
+    restart: unless-stopped
+    ports:
+      - 4000:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:80"
+      # ASPNETCORE_HTTPS_PORT: "443"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "DEV"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/aspnetapp.pfx"
+      ConnectionStrings__umbracoDbDSN: "server=umbracodb;database=master;user id=sa;password='P@ssword8347234298'"
+      Umbraco__CMS__Unattended__InstallUnattended: "true"
+      Umbraco__CMS__Unattended__UnattendedUserName: "Admin"
+      Umbraco__CMS__Unattended__UnattendedUserEmail: "stuttgart@mindrevolution.com"
+      Umbraco__CMS__Unattended__UnattendedUserPassword: "P@ssword8347234298"
+    volumes:
+      - ~/.aspnet/https:/https:ro
