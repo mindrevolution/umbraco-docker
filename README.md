@@ -3,4 +3,12 @@
 
 **This is a development container with an insecure and publicly shared configuration. Please do not deploy this to production via either Docker or Kubernetes.**
 
-Use __docker-compose up__ to start the containers and setup Umbraco 9 via http://localhost:9000
+### Containers
+1. Umbraco 9 (alpha 4)
+2. MS SQL Express 2019 (Linux)
+
+### How to use
+1. Clone repo: **git clone https://github.com/mindrevolution/umbraco-docker.git**
+2. Change into repo folder: **cd umbraco-docker**
+3. Run: **docker-compose up**
+4. Browse http://localhost:9000
